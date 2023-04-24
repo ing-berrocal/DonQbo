@@ -5,6 +5,7 @@
 package com.restaurante.producto;
 
 import com.restaurante.model.Producto;
+import java.util.List;
 
 /**
  *
@@ -13,5 +14,7 @@ import com.restaurante.model.Producto;
 interface ProductoRepositorio {
 
     public void agregarProducto(Producto any);
+
+    public List<Producto> getAllProducts();
     
 }

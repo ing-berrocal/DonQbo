@@ -5,11 +5,14 @@
 package com.restaurante.producto;
 
 import com.restaurante.model.Producto;
+import java.util.List;
+import javax.enterprise.context.ApplicationScoped;
 
 /**
  *
  * @author DELL
  */
+@ApplicationScoped
 class ProductoUseCase {
 
     ProductoUseCase(com.restaurante.producto.ProductoRepositorio productoRepositorio) {
@@ -17,6 +20,10 @@ class ProductoUseCase {
     }
 
     private final ProductoRepositorio productoRepositorio;
+    
+    public List<Producto> getAllProductos(){
+        return this.productoRepositorio.getAllProducts();
+    }
     
     void agregarProducto(Producto producto) {
         this.productoRepositorio.agregarProducto(producto);
