@@ -5,6 +5,7 @@
 package com.restaurante.producto;
 
 import com.restaurante.model.Producto;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import org.hamcrest.CoreMatchers;
@@ -67,35 +68,29 @@ public class CreacionProducto {
     @ValueSource(longs={1L,2L})
     public void agregarProducto(long productoId) {
         
-        var producto = new Producto();
+        var producto = new Producto(1L,"","","","",BigDecimal.ZERO);
         
         ProductoRepositorio repositorio = Mockito.mock(ProductoRepositorio.class);
         
         Mockito.doAnswer(i->{
-            var p = i.getArgument(0,Producto.class);
-            p.setId(productoId);
-            return p;
+            return new Producto(productoId,"","","","",BigDecimal.ZERO);
         }).when(repositorio).agregarProducto(any(Producto.class));
         
         ProductoUseCase productoUseCase = new ProductoUseCase(repositorio);
         
         productoUseCase.agregarProducto(producto);
         
-        assertThat("Producto Id",producto.getId(),equalTo(productoId));
+        assertThat("Producto Id",producto.id(),equalTo(productoId));
     }
     
     List<Producto> getProductos(){
         return Arrays.asList(
-                new Producto(),
-                new Producto(),
-                new Producto(),
-                new Producto(),
-                new Producto(),
-                new Producto(),
-                new Producto(),
-                new Producto(),
-                new Producto(),
-                new Producto()
+                new Producto(1L,"","","","",BigDecimal.ZERO),
+                new Producto(2L,"","","","",BigDecimal.ZERO),
+                new Producto(3L,"","","","",BigDecimal.ZERO),
+                new Producto(4L,"","","","",BigDecimal.ZERO),
+                new Producto(5L,"","","","",BigDecimal.ZERO),
+                new Producto(5L,"","","","",BigDecimal.ZERO)
         );
     }
 }

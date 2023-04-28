@@ -9,6 +9,7 @@ create schema donqbo;
 set schema 'donqbo';
 
 
+
 create table tbl_producto(
     id serial not null primary key,
     codigo varchar(10) not null,
