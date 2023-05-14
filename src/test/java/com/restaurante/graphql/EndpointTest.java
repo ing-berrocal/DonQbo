@@ -6,7 +6,6 @@ package com.restaurante.graphql;
 
 import io.quarkus.test.junit.QuarkusTest;
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.is;
 import org.junit.jupiter.api.Test;
 
 /**

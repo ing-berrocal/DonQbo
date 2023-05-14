@@ -6,6 +6,8 @@ package com.restaurante.producto;
 
 import com.restaurante.model.Producto;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 
 /**
@@ -21,12 +23,14 @@ class ProductoUseCase {
 
     private final ProductoRepositorio productoRepositorio;
     
-    public List<Producto> getAllProductos(){
-        return this.productoRepositorio.getAllProducts();
+    public Map<String,List<Producto>> getAllProductos(){
+        return this.productoRepositorio.getAllProducts()
+                .stream()
+                .collect(Collectors.groupingBy(Producto::categoria));
     }
     
-    void agregarProducto(Producto producto) {
-        this.productoRepositorio.agregarProducto(producto);
+    Producto agregarProducto(Producto producto) {
+        return this.productoRepositorio.agregarProducto(producto);
     }
     
 }

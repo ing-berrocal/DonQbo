@@ -2,19 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.restaurante.producto;
+package com.restaurante.usuarios;
 
 import com.restaurante.model.Producto;
-import java.util.List;
 
 /**
  *
  * @author DELL
  */
-interface ProductoRepositorio {
+interface UsuarioRepositorio {
 
-    public Producto agregarProducto(Producto any);
-
-    public List<Producto> getAllProducts();
-    
+    public UsuarioEntity agregarUsuario();    
 }

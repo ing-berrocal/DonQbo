@@ -4,15 +4,19 @@
  */
 package com.restaurante.producto;
 
+import com.restaurante.producto.promocion.PromocionEntity;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -31,6 +35,8 @@ public class ProductoEntity implements Serializable{
     @Column(name = "id")
     private Long id;
     @Column
+    private String categoria;
+    @Column
     private String codigo;
     @Column
     private String nombre;
@@ -40,6 +46,10 @@ public class ProductoEntity implements Serializable{
     private String urlImagen;
     @Column(name = "valor_venta")
     private BigDecimal valor;
+    @Column(name = "es_promocion")
+    private Boolean esPromocion;
+    @OneToMany(mappedBy = "producto",fetch = FetchType.EAGER)
+    private List<PromocionEntity> items;
 
     public void setId(Long id) {
         this.id = id;
@@ -89,5 +99,27 @@ public class ProductoEntity implements Serializable{
         this.valor = valor;
     }
 
-    
+    public void setEsPromocion(Boolean esPromocion) {
+        this.esPromocion = esPromocion;
+    }
+
+    public Boolean getEsPromocion() {
+        return esPromocion;
+    }
+
+    public void setItems(List<PromocionEntity> items) {
+        this.items = items;
+    }
+
+    public List<PromocionEntity> getItems() {
+        return items;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
 }

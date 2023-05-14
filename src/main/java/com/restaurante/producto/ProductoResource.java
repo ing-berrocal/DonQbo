@@ -5,10 +5,20 @@
 package com.restaurante.producto;
 
 import com.restaurante.model.Producto;
+import com.restaurante.model.ProductoRequest;
+import com.restaurante.respuesta.ProductoRespuesta;
 import java.util.List;
+import java.util.Map;
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.SecurityContext;
 
 /**
  *
@@ -21,12 +31,30 @@ public class ProductoResource {
     ProductoUseCase productoUseCase;
     
     @GET
-    public List<Producto> getAllProducts(){
+    @PermitAll
+    public Map<String,List<Producto>>getAllProducts(){
         long executionStart = System.currentTimeMillis();
-        List<Producto> allProductos = this.productoUseCase.getAllProductos();
+        Map<String,List<Producto>> allProductos = this.productoUseCase.getAllProductos();
         long executionEnd = System.currentTimeMillis();
         Long diff = executionEnd - executionStart;
         System.out.println(diff);
         return allProductos;
+    }
+    
+    @POST
+    @RolesAllowed("admin")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public ProductoRespuesta agregarProducto(
+            @Context SecurityContext sec,
+            ProductoRequest request){
+        long executionStart = System.currentTimeMillis();
+        
+        long executionEnd = System.currentTimeMillis();
+        Long diff = executionEnd - executionStart;
+        System.out.println(diff);
+        
+        System.out.println(sec.getUserPrincipal());
+
+        return new ProductoRespuesta();
     }
 }

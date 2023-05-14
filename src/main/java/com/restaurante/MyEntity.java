@@ -24,8 +24,8 @@ import javax.persistence.Id;
  */
 //@Entity
 public class MyEntity {
-    @Id
-    @GeneratedValue
+//    @Id
+//    @GeneratedValue
     public Long id;
 
     public String field;

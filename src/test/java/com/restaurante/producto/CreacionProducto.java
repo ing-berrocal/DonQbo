@@ -7,8 +7,9 @@ package com.restaurante.producto;
 import com.restaurante.model.Producto;
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import org.hamcrest.CoreMatchers;
+import java.util.Map;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import org.hamcrest.Matchers;
@@ -59,38 +60,42 @@ public class CreacionProducto {
         
         ProductoUseCase productoUseCase = new ProductoUseCase(repositorio);
         
-        List<Producto> allProductos = productoUseCase.getAllProductos();
+        Map<String,List<Producto>> allProductos = productoUseCase.getAllProductos();
         
-        assertThat("Collecion de productos",allProductos,Matchers.hasSize(10));
+        assertThat("Collecion de productos",allProductos,Matchers.aMapWithSize(10));
     }
     
     @ParameterizedTest
     @ValueSource(longs={1L,2L})
     public void agregarProducto(long productoId) {
         
-        var producto = new Producto(1L,"","","","",BigDecimal.ZERO);
+        var newProducto = new Producto("","","","", "",BigDecimal.ZERO);
         
         ProductoRepositorio repositorio = Mockito.mock(ProductoRepositorio.class);
         
         Mockito.doAnswer(i->{
-            return new Producto(productoId,"","","","",BigDecimal.ZERO);
+            return new Producto("","","","","",BigDecimal.ZERO);
         }).when(repositorio).agregarProducto(any(Producto.class));
         
         ProductoUseCase productoUseCase = new ProductoUseCase(repositorio);
         
-        productoUseCase.agregarProducto(producto);
+        var productoRegistred = productoUseCase.agregarProducto(newProducto);
         
-        assertThat("Producto Id",producto.id(),equalTo(productoId));
+        assertThat("Producto Id",productoRegistred.id(),equalTo(productoId));
     }
     
     List<Producto> getProductos(){
         return Arrays.asList(
-                new Producto(1L,"","","","",BigDecimal.ZERO),
-                new Producto(2L,"","","","",BigDecimal.ZERO),
-                new Producto(3L,"","","","",BigDecimal.ZERO),
-                new Producto(4L,"","","","",BigDecimal.ZERO),
-                new Producto(5L,"","","","",BigDecimal.ZERO),
-                new Producto(5L,"","","","",BigDecimal.ZERO)
+                new Producto(1L,"","","","","",BigDecimal.ZERO,Collections.emptyList()),
+                new Producto(2L,"","","","","",BigDecimal.ZERO,Collections.emptyList()),
+                new Producto(3L,"","","","","",BigDecimal.ZERO,Collections.emptyList()),
+                new Producto(4L,"","","","","",BigDecimal.ZERO,Collections.emptyList()),
+                new Producto(5L,"","","","","",BigDecimal.ZERO,Collections.emptyList()),
+                new Producto(6L,"","","","","",BigDecimal.ZERO,Collections.emptyList()),
+                new Producto(7L,"","","","","",BigDecimal.ZERO,Collections.emptyList()),
+                new Producto(8L,"","","","","",BigDecimal.ZERO,Collections.emptyList()),
+                new Producto(9L,"","","","","",BigDecimal.ZERO,Collections.emptyList()),
+                new Producto(10L,"","","","","",BigDecimal.ZERO,Collections.emptyList())
         );
     }
 }
