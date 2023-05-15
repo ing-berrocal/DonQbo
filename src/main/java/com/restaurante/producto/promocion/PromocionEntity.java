@@ -17,8 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -27,12 +26,7 @@ import javax.persistence.Table;
  */
 @Table(schema = "donqbo",name = "tbl_promocion")
 @Entity
-@NamedQueries({
-    @NamedQuery(name = PromocionEntity.FINDALL, query = "SELECT p FROM ProductoEntity p ORDER BY p.codigo")
-})
 public class PromocionEntity implements Serializable {
-
-    public static final String FINDALL = "PromocionEntity_findAll";
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id")
@@ -45,14 +39,15 @@ public class PromocionEntity implements Serializable {
     private Integer min_items;
     @Column
     private Integer max_items;
-    @ManyToMany(fetch = FetchType.EAGER)
+    /*@OneToMany(fetch = FetchType.EAGER)
     @JoinTable(
             schema = "donqbo",
             name = "tbl_promocion_producto",
-            joinColumns = @JoinColumn(name = "promocion_id"),
-            inverseJoinColumns = @JoinColumn(name = "producto_id"))
-    private List<ProductoEntity> productos;
-
+            joinColumns = {@JoinColumn(name = "promocion_id", referencedColumnName = "id")}
+            ,inverseJoinColumns = @JoinColumn(name = "producto_id", referencedColumnName = "id")
+    )
+    private List<ProductoEntity> promocionProductos;
+    */
     public Long getId() {
         return id;
     }
@@ -85,14 +80,6 @@ public class PromocionEntity implements Serializable {
         this.max_items = max_items;
     }
 
-    public List<ProductoEntity> getProductos() {
-        return productos;
-    }
-
-    public void setProductos(List<ProductoEntity> productos) {
-        this.productos = productos;
-    }
-
     public void setProducto(ProductoEntity producto) {
         this.producto = producto;
     }
@@ -100,4 +87,12 @@ public class PromocionEntity implements Serializable {
     public ProductoEntity getProducto() {
         return producto;
     }
+
+    /*public void setPromocionProductos(List<ProductoEntity> promocionProductos) {
+        this.promocionProductos = promocionProductos;
+    }
+
+    public List<ProductoEntity> getPromocionProductos() {
+        return promocionProductos;
+    }*/
 }

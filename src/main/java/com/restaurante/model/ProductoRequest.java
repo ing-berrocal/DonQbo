@@ -15,7 +15,7 @@ public class ProductoRequest {
     private String nombre;
     private String descripcion;
     private Double valor;
-    private Boolean esPromocion;
+    private Boolean estaActivo;
 
     public String getCodigoCategoria() {
         return codigoCategoria;
@@ -57,13 +57,11 @@ public class ProductoRequest {
         this.valor = valor;
     }
 
-    public Boolean getEsPromocion() {
-        return esPromocion;
+    public Boolean getEstaActivo() {
+        return estaActivo;
     }
 
-    public void setEsPromocion(Boolean esPromocion) {
-        this.esPromocion = esPromocion;
+    public void setEstaActivo(Boolean estaActivo) {
+        this.estaActivo = estaActivo;
     }
-    
-    
 }

@@ -40,21 +40,4 @@ public class ProductoResource {
         System.out.println(diff);
         return allProductos;
     }
-    
-    @POST
-    @RolesAllowed("admin")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public ProductoRespuesta agregarProducto(
-            @Context SecurityContext sec,
-            ProductoRequest request){
-        long executionStart = System.currentTimeMillis();
-        
-        long executionEnd = System.currentTimeMillis();
-        Long diff = executionEnd - executionStart;
-        System.out.println(diff);
-        
-        System.out.println(sec.getUserPrincipal());
-
-        return new ProductoRespuesta();
-    }
 }

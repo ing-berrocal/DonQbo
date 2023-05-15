@@ -19,5 +19,8 @@ public class Respuesta<T> {
         return data;
     }
     
+    public static <T> Respuesta getInstance(T data){
+        return new Respuesta<T>(data);
+    }
     
 }

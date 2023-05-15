@@ -7,6 +7,7 @@ package com.restaurante.producto;
 import com.restaurante.model.Producto;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 
@@ -27,6 +28,14 @@ class ProductoUseCase {
         return this.productoRepositorio.getAllProducts()
                 .stream()
                 .collect(Collectors.groupingBy(Producto::categoria));
+    }
+    
+    public List<Producto> getProductos(){
+        return this.productoRepositorio.getAllProducts();
+    }
+    
+    public Optional<Producto> getProductoById(long Id){
+        return this.productoRepositorio.getProductoById(Id);
     }
     
     Producto agregarProducto(Producto producto) {

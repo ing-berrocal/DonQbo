@@ -6,6 +6,7 @@ package com.restaurante.usuarios;
 
 import com.restaurante.util.Respuesta;
 import io.smallrye.jwt.build.Jwt;
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.HashSet;
 import javax.annotation.security.PermitAll;
@@ -42,6 +43,7 @@ public class UsuarioResource {
                 .groups(new HashSet<>(Arrays.asList("admin","user")))
                 .claim(Claims.full_name, "Daniel Antonio Berrocal")
                 .claim(Claims.birthdate, "2001-07-13")
+                        .expiresIn(Duration.ofDays(4L))
                 .sign())
                 
                 
