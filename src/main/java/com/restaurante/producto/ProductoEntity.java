@@ -29,6 +29,7 @@ import javax.persistence.Table;
 @Entity
 @NamedQueries({
     @NamedQuery(name = ProductoEntity.FINDALL,query = "SELECT p FROM ProductoEntity p ORDER BY p.codigo"),
+    @NamedQuery(name = ProductoEntity.FINDNAME,query = "SELECT p FROM ProductoEntity p WHERE p.nombre = :nombre")
 })
 @NamedNativeQuery(name = "selectAuthorEntities", 
                   query = """
@@ -39,6 +40,8 @@ import javax.persistence.Table;
                   resultClass = ProductoEntity.class)
 public class ProductoEntity implements Serializable{
     public static final String FINDALL = "ProductoEntity_findAll";
+    public static final String FINDNAME = "ProductoEntity_findName";
+    
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column(name = "id")

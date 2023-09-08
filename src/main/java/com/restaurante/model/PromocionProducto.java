@@ -11,9 +11,9 @@ import java.util.List;
  * @author DELL
  */
 public record PromocionProducto(
-        Long id,
-        String nombre,
-        Integer minItems,
-        Integer maxItems,
-        List<Producto> productos) {
+                Long id,
+                String nombre,
+                Integer minItems,
+                Integer maxItems,
+                List<Product> productos) {
 }

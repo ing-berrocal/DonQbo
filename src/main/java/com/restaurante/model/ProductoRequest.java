@@ -4,25 +4,27 @@
  */
 package com.restaurante.model;
 
+import java.math.BigDecimal;
+
 /**
  *
  * @author DELL
  */
 public class ProductoRequest {
-    
-    private String codigoCategoria;
+
+    private String categoria;
     private String codigo;
     private String nombre;
     private String descripcion;
-    private Double valor;
+    private BigDecimal valor;
     private Boolean estaActivo;
 
-    public String getCodigoCategoria() {
-        return codigoCategoria;
+    public String getCategoria() {
+        return categoria;
     }
 
-    public void setCodigoCategoria(String codigoCategoria) {
-        this.codigoCategoria = codigoCategoria;
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
     public String getCodigo() {
@@ -49,11 +51,11 @@ public class ProductoRequest {
         this.descripcion = descripcion;
     }
 
-    public Double getValor() {
+    public BigDecimal getValor() {
         return valor;
     }
 
-    public void setValor(Double valor) {
+    public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
 
@@ -63,5 +65,9 @@ public class ProductoRequest {
 
     public void setEstaActivo(Boolean estaActivo) {
         this.estaActivo = estaActivo;
+    }
+
+    public Product toProduct() {
+        return new Product(null, categoria, codigo, nombre, descripcion, categoria, valor, null, estaActivo);
     }
 }

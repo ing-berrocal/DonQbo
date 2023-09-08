@@ -6,25 +6,20 @@ package com.restaurante.producto.promocion;
 
 import com.restaurante.producto.ProductoEntity;
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
  *
  * @author DELL
  */
-@Table(schema = "donqbo",name = "tbl_promocion")
+@Table(schema = "donqbo", name = "tbl_promocion")
 @Entity
 public class PromocionEntity implements Serializable {
     @Id
@@ -39,15 +34,20 @@ public class PromocionEntity implements Serializable {
     private Integer min_items;
     @Column
     private Integer max_items;
-    /*@OneToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            schema = "donqbo",
-            name = "tbl_promocion_producto",
-            joinColumns = {@JoinColumn(name = "promocion_id", referencedColumnName = "id")}
-            ,inverseJoinColumns = @JoinColumn(name = "producto_id", referencedColumnName = "id")
-    )
-    private List<ProductoEntity> promocionProductos;
-    */
+
+    /*
+     * @OneToMany(fetch = FetchType.EAGER)
+     * 
+     * @JoinTable(
+     * schema = "donqbo",
+     * name = "tbl_promocion_producto",
+     * joinColumns = {@JoinColumn(name = "promocion_id", referencedColumnName =
+     * "id")}
+     * ,inverseJoinColumns = @JoinColumn(name = "producto_id", referencedColumnName
+     * = "id")
+     * )
+     * private List<ProductoEntity> promocionProductos;
+     */
     public Long getId() {
         return id;
     }
@@ -88,11 +88,13 @@ public class PromocionEntity implements Serializable {
         return producto;
     }
 
-    /*public void setPromocionProductos(List<ProductoEntity> promocionProductos) {
-        this.promocionProductos = promocionProductos;
-    }
-
-    public List<ProductoEntity> getPromocionProductos() {
-        return promocionProductos;
-    }*/
+    /*
+     * public void setPromocionProductos(List<ProductoEntity> promocionProductos) {
+     * this.promocionProductos = promocionProductos;
+     * }
+     * 
+     * public List<ProductoEntity> getPromocionProductos() {
+     * return promocionProductos;
+     * }
+     */
 }

@@ -4,7 +4,7 @@
  */
 package com.restaurante.usuarios;
 
-import com.restaurante.model.Producto;
+import com.restaurante.model.Product;
 
 /**
  *
@@ -12,5 +12,5 @@ import com.restaurante.model.Producto;
  */
 interface UsuarioRepositorio {
 
-    public UsuarioEntity agregarUsuario();    
+    public UsuarioEntity agregarUsuario();
 }

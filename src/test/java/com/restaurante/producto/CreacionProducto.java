@@ -4,12 +4,18 @@
  */
 package com.restaurante.producto;
 
-import com.restaurante.model.Producto;
+import com.restaurante.model.Product;
+import com.restaurante.servicio.categoria.Categoria;
+
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import org.hamcrest.Matchers;
@@ -28,22 +34,22 @@ import org.mockito.Mockito;
  * @author DELL
  */
 public class CreacionProducto {
-    
+
     public CreacionProducto() {
     }
-    
+
     @BeforeAll
     public static void setUpClass() {
     }
-    
+
     @AfterAll
     public static void tearDownClass() {
     }
-    
+
     @BeforeEach
     public void setUp() {
     }
-    
+
     @AfterEach
     public void tearDown() {
     }
@@ -52,50 +58,53 @@ public class CreacionProducto {
     // The methods must be annotated with annotation @Test. For example:
     //
     @Test
-    void obtenerTodosProductos(){
-                
+    void obtenerTodosProductos() {
+
         ProductoRepositorio repositorio = Mockito.mock(ProductoRepositorio.class);
-        
-        Mockito.when(repositorio.getAllProducts()).thenReturn(getProductos());
-        
+
+        Mockito.when(repositorio.getAllProducts()).thenReturn(getProducts());
+
         ProductoUseCase productoUseCase = new ProductoUseCase(repositorio);
-        
-        Map<String,List<Producto>> allProductos = productoUseCase.getAllProductos();
-        
-        assertThat("Collecion de productos",allProductos,Matchers.aMapWithSize(10));
+
+        Map<String, List<Product>> allProductos = productoUseCase.getAllProductos();
+
+        assertThat("Collecion de productos", allProductos, Matchers.aMapWithSize(3));
     }
-    
+
     @ParameterizedTest
-    @ValueSource(longs={1L,2L})
-    public void agregarProducto(long productoId) {
-        
-        var newProducto = new Producto("","","","", "",BigDecimal.ZERO);
-        
+    @ValueSource(longs = { 1L, 2L })
+    public void agregarProducto(final Long productId) {
+
+        var newProducto = new Product(productId, "", "", "", "", "", BigDecimal.ZERO, Collections.emptyList(),
+                Boolean.TRUE);
+
         ProductoRepositorio repositorio = Mockito.mock(ProductoRepositorio.class);
-        
-        Mockito.doAnswer(i->{
-            return new Producto("","","","","",BigDecimal.ZERO);
-        }).when(repositorio).agregarProducto(any(Producto.class));
-        
+
+        Mockito.doAnswer(i -> {
+            return new Product(productId, "", "", "", "", "", BigDecimal.ZERO, Collections.emptyList(), Boolean.TRUE);
+        }).when(repositorio).agregarProducto(any(Product.class));
+
         ProductoUseCase productoUseCase = new ProductoUseCase(repositorio);
-        
-        var productoRegistred = productoUseCase.agregarProducto(newProducto);
-        
-        assertThat("Producto Id",productoRegistred.id(),equalTo(productoId));
+
+        productoUseCase.agregarProducto(newProducto);
+
+        assertThat("Producto Id", newProducto.getId(), equalTo(productId));
     }
-    
-    List<Producto> getProductos(){
+
+    List<Product> getProducts() {
+        final String[] categorias = { "prom", "prod", "beb" };
         return Arrays.asList(
-                new Producto(1L,"","","","","",BigDecimal.ZERO,Collections.emptyList()),
-                new Producto(2L,"","","","","",BigDecimal.ZERO,Collections.emptyList()),
-                new Producto(3L,"","","","","",BigDecimal.ZERO,Collections.emptyList()),
-                new Producto(4L,"","","","","",BigDecimal.ZERO,Collections.emptyList()),
-                new Producto(5L,"","","","","",BigDecimal.ZERO,Collections.emptyList()),
-                new Producto(6L,"","","","","",BigDecimal.ZERO,Collections.emptyList()),
-                new Producto(7L,"","","","","",BigDecimal.ZERO,Collections.emptyList()),
-                new Producto(8L,"","","","","",BigDecimal.ZERO,Collections.emptyList()),
-                new Producto(9L,"","","","","",BigDecimal.ZERO,Collections.emptyList()),
-                new Producto(10L,"","","","","",BigDecimal.ZERO,Collections.emptyList())
-        );
+                new Product(1L, categorias[0], "", "", "", "", BigDecimal.ZERO, Collections.emptyList(), Boolean.TRUE),
+                new Product(2L, categorias[0], "", "", "", "", BigDecimal.ZERO, Collections.emptyList(), Boolean.TRUE),
+                new Product(3L, categorias[0], "", "", "", "", BigDecimal.ZERO, Collections.emptyList(), Boolean.TRUE),
+                new Product(4L, categorias[1], "", "", "", "", BigDecimal.ZERO, Collections.emptyList(), Boolean.TRUE),
+                new Product(5L, categorias[1], "", "", "", "", BigDecimal.ZERO, Collections.emptyList(), Boolean.TRUE),
+                new Product(6L, categorias[1], "", "", "", "", BigDecimal.ZERO, Collections.emptyList(), Boolean.TRUE),
+                new Product(7L, categorias[2], "", "", "", "", BigDecimal.ZERO, Collections.emptyList(), Boolean.TRUE),
+                new Product(81L, categorias[2], "", "", "", "", BigDecimal.ZERO, Collections.emptyList(), Boolean.TRUE),
+                new Product(9L, categorias[2], "", "", "", "", BigDecimal.ZERO, Collections.emptyList(), Boolean.TRUE),
+                new Product(10L, categorias[2], "", "", "", "", BigDecimal.ZERO, Collections.emptyList(),
+                        Boolean.TRUE));
     }
+
 }
